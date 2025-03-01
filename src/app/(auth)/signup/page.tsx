@@ -6,6 +6,13 @@ import Link from 'next/link'
 import { EyeIcon, EyeSlashIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'
 import Logo from '@/components/Logo'
 
+interface PasswordStrength {
+  score: number;
+  message: string;
+  color: string;
+  requirements: string[];
+}
+
 export default function SignUp() {
   const [formData, setFormData] = useState({
     name: '',
@@ -24,7 +31,7 @@ export default function SignUp() {
   })
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const [passwordStrength, setPasswordStrength] = useState({
+  const [passwordStrength, setPasswordStrength] = useState<PasswordStrength>({
     score: 0,
     message: '',
     color: 'gray',
@@ -35,7 +42,7 @@ export default function SignUp() {
     let score = 0
     let message = ''
     let color = 'gray'
-    let requirements = []
+    const requirements: string[] = []
 
     // Check length
     if (password.length >= 8) {
@@ -104,7 +111,7 @@ export default function SignUp() {
         color = 'gray'
     }
 
-    setPasswordStrength({ score, message, color, requirements: requirements as any })
+    setPasswordStrength({ score, message, color, requirements })
   }
 
   useEffect(() => {
