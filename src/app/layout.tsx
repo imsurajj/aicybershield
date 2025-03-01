@@ -7,6 +7,20 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'CyberShield - AI Security',
   description: 'Next-generation cybersecurity platform powered by artificial intelligence',
+  icons: {
+    icon: [
+      {
+        url: '/icon',
+        type: 'image/png',
+      },
+    ],
+    apple: [
+      {
+        url: '/icon',
+        type: 'image/png',
+      },
+    ],
+  },
 }
 
 export default function RootLayout({

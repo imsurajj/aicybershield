@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-  import { motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 // Navbar Component
 function Navbar() {
@@ -48,22 +48,21 @@ function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-gray-600 hover:text-blue-600 transition-colors"
+                className="text-gray-600 hover:text-gray-900"
                 onClick={handleLinkClick}
               >
                 {link.label}
               </Link>
             ))}
             <Link
-              href="#get-started"
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-              onClick={handleLinkClick}
+              href="/signup"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Get Started
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -109,7 +108,7 @@ function Navbar() {
             ))}
             <div className="px-4 pt-2">
               <Link
-                href="#get-started"
+                href="/signup"
                 className="block w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-center"
                 onClick={handleLinkClick}
               >
