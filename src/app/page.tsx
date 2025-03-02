@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import AnimatedBadge from './components/AnimatedBadge'
 
 // Navbar Component
 function Navbar() {
@@ -29,45 +30,85 @@ function Navbar() {
   ]
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-sm' : 'bg-white'}`}>
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-sm' : 'bg-white'}`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex items-center">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-2">
+          <motion.div 
+            className="flex items-center"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <motion.div 
+              className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-2"
+              whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+              transition={{ duration: 0.5 }}
+            >
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
-            </div>
-            <span className="text-xl font-bold text-gray-900">CyberShield</span>
-          </div>
+            </motion.div>
+            <motion.span 
+              className="text-xl font-bold text-gray-900"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              CyberShield
+            </motion.span>
+          </motion.div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
+            {navLinks.map((link, index) => (
+              <motion.div
                 key={link.href}
-                href={link.href}
-                className="text-gray-600 hover:text-gray-900"
-                onClick={handleLinkClick}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * (index + 1) }}
+                whileHover={{ y: -2 }}
               >
-                {link.label}
-              </Link>
+                <Link
+                  href={link.href}
+                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  onClick={handleLinkClick}
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
             ))}
-            <Link
-              href="/signup"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Get Started
-            </Link>
+              <Link
+                href="/signup"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+              >
+                Get Started
+              </Link>
+            </motion.div>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
+          <motion.div 
+            className="md:hidden"
+            whileTap={{ scale: 0.9 }}
+          >
+            <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-600 hover:text-blue-600 focus:outline-none focus:text-blue-600"
               aria-label="Toggle menu"
+              whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+              transition={{ duration: 0.5 }}
             >
               <svg
                 className="h-6 w-6"
@@ -84,29 +125,53 @@ function Navbar() {
                   <path d="M4 6h16M4 12h16M4 18h16" />
                 )}
               </svg>
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         </div>
 
         {/* Mobile Navigation */}
         <motion.div
           initial={false}
-          animate={isMenuOpen ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
-          transition={{ duration: 0.2 }}
+          animate={isMenuOpen ? { 
+            height: 'auto', 
+            opacity: 1,
+            transition: {
+              height: { duration: 0.3 },
+              opacity: { duration: 0.2 }
+            }
+          } : { 
+            height: 0, 
+            opacity: 0,
+            transition: {
+              height: { duration: 0.3 },
+              opacity: { duration: 0.2 }
+            }
+          }}
           className={`md:hidden overflow-hidden ${isMenuOpen ? 'border-t border-gray-200' : ''}`}
         >
           <div className="py-4 space-y-4">
-            {navLinks.map((link) => (
-              <Link
+            {navLinks.map((link, index) => (
+              <motion.div
                 key={link.href}
-                href={link.href}
-                className="block text-gray-600 hover:text-blue-600 transition-colors px-4"
-                onClick={handleLinkClick}
+                initial={{ opacity: 0, x: -20 }}
+                animate={isMenuOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                transition={{ delay: 0.1 * index }}
               >
-                {link.label}
-              </Link>
+                <Link
+                  href={link.href}
+                  className="block text-gray-600 hover:text-blue-600 transition-colors px-4"
+                  onClick={handleLinkClick}
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
             ))}
-            <div className="px-4 pt-2">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={isMenuOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+              transition={{ delay: 0.4 }}
+              className="px-4 pt-2"
+            >
               <Link
                 href="/signup"
                 className="block w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-center"
@@ -114,11 +179,11 @@ function Navbar() {
               >
                 Get Started
               </Link>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
-    </nav>
+    </motion.nav>
   )
 }
 
@@ -128,14 +193,10 @@ function Hero() {
     <section className="pt-32 pb-24 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center px-4 py-2 bg-blue-500 rounded-full mb-8">
-            <span className="text-sm font-medium text-white">
-              AI-Powered Security Platform
-            </span>
-          </div>
+          <AnimatedBadge text="AI-Powered Security Platform" className="mb-8" />
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-black mb-6">
-          Secure Your Digital Future with AI Cybersecurity
+            Secure Your Digital Future with AI Cybersecurity
           </h1>
           
           <p className="text-xl text-gray-800 mb-10">
