@@ -40,7 +40,7 @@ function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <motion.div 
-            className="flex items-center"
+            className="flex items-center cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -75,7 +75,7 @@ function Navbar() {
               >
                 <Link
                   href={link.href}
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-gray-600 hover:text-gray-900 transition-colors cursor-pointer"
                   onClick={handleLinkClick}
                 >
                   {link.label}
@@ -91,7 +91,7 @@ function Navbar() {
             >
               <Link
                 href="/signup"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors cursor-pointer"
               >
                 Get Started
               </Link>
@@ -159,7 +159,7 @@ function Navbar() {
               >
                 <Link
                   href={link.href}
-                  className="block text-gray-600 hover:text-blue-600 transition-colors px-4"
+                  className="block text-gray-600 hover:text-blue-600 transition-colors px-4 cursor-pointer"
                   onClick={handleLinkClick}
                 >
                   {link.label}
@@ -174,7 +174,7 @@ function Navbar() {
             >
               <Link
                 href="/signup"
-                className="block w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-center"
+                className="block w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-center cursor-pointer"
                 onClick={handleLinkClick}
               >
                 Get Started
@@ -192,18 +192,38 @@ function Hero() {
   return (
     <section className="pt-32 pb-24 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
-        <div className="max-w-3xl mx-auto text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-3xl mx-auto text-center"
+        >
           <AnimatedBadge text="AI-Powered Security Platform" className="mb-8" />
           
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-black mb-6">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            className="text-4xl sm:text-5xl md:text-6xl font-bold text-black mb-6"
+          >
             Secure Your Digital Future with AI Cybersecurity
-          </h1>
+          </motion.h1>
           
-          <p className="text-xl text-gray-800 mb-10">
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="text-xl text-gray-800 mb-10"
+          >
             Next-gen cybersecurity with AI-driven threat detection, breach notification, and risk assessment for your digital assets.
-          </p>
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+          >
             <Link 
               href="/demo"
               className="w-full sm:w-auto px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-center"
@@ -211,12 +231,12 @@ function Hero() {
               Get Started Free
             </Link>
             <Link 
-              href="/demo"
+              href="/dashboard"
               className="w-full sm:w-auto px-8 py-3 border border-gray-500 text-gray-800 rounded-lg hover:border-gray-400 transition-colors text-center"
             >
-              Watch Demo
+              View Dashboard
             </Link>
-          </div>
+          </motion.div>
 
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -236,7 +256,7 @@ function Hero() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )
@@ -280,19 +300,30 @@ function Features() {
   return (
     <section id="features" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
             Next-Generation Security
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Advanced security features powered by artificial intelligence
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature) => (
-            <div 
+          {features.map((feature, index) => (
+            <motion.div 
               key={feature.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2, duration: 0.8 }}
+              whileHover={{ y: -5, transition: { duration: 0.3 } }}
               className="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
@@ -306,7 +337,7 @@ function Features() {
               <p className="text-gray-600">
                 {feature.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
@@ -493,7 +524,7 @@ function Pricing() {
               }`}
             >
               {plan.popular && (
-                <span className="absolute -top-3 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+               <span className="absolute -top-3 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                   Popular
                 </span>
               )}
@@ -561,6 +592,49 @@ function CTA() {
 
 // Footer
 function Footer() {
+  const socialLinks = [
+    {
+      name: 'Twitter',
+      href: '#',
+      icon: (
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+        </svg>
+      ),
+      hoverColor: '#1DA1F2'
+    },
+    {
+      name: 'LinkedIn',
+      href: '#',
+      icon: (
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      ),
+      hoverColor: '#0A66C2'
+    },
+    {
+      name: 'GitHub',
+      href: '#',
+      icon: (
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path fillRule="evenodd" clipRule="evenodd" d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      ),
+      hoverColor: '#24292F'
+    },
+    {
+      name: 'Facebook',
+      href: '#',
+      icon: (
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+      ),
+      hoverColor: '#1877F2'
+    }
+  ];
+
   return (
     <footer className="bg-white text-gray-600">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -613,23 +687,25 @@ function Footer() {
               <span className="text-black font-semibold">CyberShield</span>
             </div>
             <div className="flex space-x-6">
-              {['twitter', 'facebook', 'linkedin', 'github'].map((social) => (
-                <Link key={social} href="#" className="text-gray-400 hover:text-blue-600 transition-colors">
-                  <span className="sr-only">{social}</span>
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 22c-5.514 0-10-4.486-10-10s4.486-10 10-10 10 4.486 10 10-4.486 10-10 10z" />
-                  </svg>
+              {socialLinks.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`text-gray-400 hover:text-[${item.hoverColor}] transition-colors`}
+                  aria-label={`Follow us on ${item.name}`}
+                >
+                  {item.icon}
                 </Link>
               ))}
             </div>
           </div>
           <p className="text-center text-gray-500 mt-8">
-            {new Date().getFullYear()} CyberShield. All rights reserved.
+            © {new Date().getFullYear()} CyberShield. All rights reserved.
           </p>
         </div>
       </div>
     </footer>
-  )
+  );
 }
 
 // Main Page Component

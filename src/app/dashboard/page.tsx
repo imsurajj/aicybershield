@@ -34,8 +34,7 @@ const DashboardPage = () => {
                 transition={{ delay: 0.3, duration: 0.5 }}
                 className="text-gray-600 text-lg md:text-xl mb-8"
               >
-                We're working hard to bring you an amazing dashboard experience. Stay tuned for updates!
-              </motion.p>
+                We&apos;re working hard to bring you an amazing dashboard experience. Stay tuned for updates!                </motion.p>
               <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
                 {[
                   {

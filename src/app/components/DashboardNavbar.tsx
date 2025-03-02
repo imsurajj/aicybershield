@@ -33,29 +33,31 @@ const DashboardNavbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <motion.div 
-            className="flex items-center"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
+          <Link href="/" className="cursor-pointer">
             <motion.div 
-              className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-2"
-              whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-              transition={{ duration: 0.5 }}
+              className="flex items-center"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
+              <motion.div 
+                className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-2"
+                whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                transition={{ duration: 0.5 }}
+              >
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </motion.div>
+              <motion.span 
+                className="text-xl font-bold text-gray-900"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                CyberShield
+              </motion.span>
             </motion.div>
-            <motion.span 
-              className="text-xl font-bold text-gray-900"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              CyberShield
-            </motion.span>
-          </motion.div>
+          </Link>
 
           {/* Right side buttons */}
           <div className="flex items-center space-x-4">
@@ -65,7 +67,7 @@ const DashboardNavbar = () => {
                 onClick={() => toggleDropdown('notification')}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`p-2 text-gray-600 rounded-full transition-all duration-200 ${
+                className={`p-2 text-gray-600 rounded-full transition-all duration-200 cursor-pointer ${
                   activeDropdown === 'notification'
                     ? 'bg-blue-50 text-blue-600 ring-2 ring-blue-200'
                     : 'hover:text-blue-600 hover:bg-blue-50'
@@ -91,7 +93,7 @@ const DashboardNavbar = () => {
                       <h3 className="text-sm font-semibold text-gray-900">Notifications</h3>
                     </div>
                     <div className="max-h-64 overflow-y-auto">
-                      <div className="px-4 py-3 hover:bg-gray-50">
+                      <div className="px-4 py-3 hover:bg-gray-50 cursor-pointer">
                         <p className="text-sm text-gray-600">No new notifications</p>
                       </div>
                     </div>
@@ -106,7 +108,7 @@ const DashboardNavbar = () => {
                 onClick={() => toggleDropdown('profile')}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`flex items-center space-x-2 rounded-full p-1 transition-all duration-200 ${
+                className={`flex items-center space-x-2 rounded-full p-1 transition-all duration-200 cursor-pointer ${
                   activeDropdown === 'profile'
                     ? 'bg-blue-50 text-blue-600 ring-2 ring-blue-200'
                     : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
@@ -134,8 +136,9 @@ const DashboardNavbar = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.1 }}
+                      className="cursor-pointer"
                     >
-                      <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+                      <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 cursor-pointer">
                         Your Profile
                       </Link>
                     </motion.div>
@@ -143,8 +146,9 @@ const DashboardNavbar = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.2 }}
+                      className="cursor-pointer"
                     >
-                      <Link href="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+                      <Link href="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 cursor-pointer">
                         Settings
                       </Link>
                     </motion.div>
@@ -153,8 +157,9 @@ const DashboardNavbar = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.3 }}
+                      className="cursor-pointer"
                     >
-                      <Link href="/logout" className="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                      <Link href="/logout" className="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 cursor-pointer">
                         Sign out
                       </Link>
                     </motion.div>
