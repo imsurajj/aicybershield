@@ -559,6 +559,194 @@ function Pricing() {
   )
 }
 
+// FAQ Section
+function FAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      question: "What makes CyberShield's AI different?",
+      answer: "Our AI technology uses advanced machine learning algorithms specifically trained on cybersecurity threats. It continuously learns from new attack patterns and adapts in real-time, providing superior protection compared to traditional security solutions."
+    },
+    {
+      question: "How quickly can I get started?",
+      answer: "You can get started with CyberShield in minutes. Simply sign up for an account, choose your plan, and follow our guided setup process. Our system will begin protecting your assets immediately."
+    },
+    {
+      question: "Do you offer enterprise-level support?",
+      answer: "Yes, we provide dedicated 24/7 enterprise support with custom SLAs, priority response times, and a dedicated security expert for your organization."
+    },
+    {
+      question: "Is CyberShield compliant with security standards?",
+      answer: "Yes, CyberShield is compliant with major security standards including SOC 2, ISO 27001, GDPR, and HIPAA. We regularly undergo third-party audits to maintain these certifications."
+    },
+    {
+      question: "Can I integrate CyberShield with my existing tools?",
+      answer: "Absolutely! CyberShield offers extensive API support and pre-built integrations with popular security tools, cloud platforms, and business applications."
+    },
+    {
+      question: "What kind of threats can CyberShield detect?",
+      answer: "CyberShield can detect a wide range of threats including malware, ransomware, phishing attempts, DDoS attacks, zero-day exploits, and sophisticated APT attacks using our AI-powered detection system."
+    }
+  ];
+
+  // Split faqs into two arrays for two columns
+  const leftColumnFaqs = faqs.slice(0, Math.ceil(faqs.length / 2));
+  const rightColumnFaqs = faqs.slice(Math.ceil(faqs.length / 2));
+
+  return (
+    <section id="faq" className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl font-bold text-black mb-4">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-xl text-gray-800 max-w-2xl mx-auto">
+            Everything you need to know about CyberShield
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+          {/* Left Column */}
+          <div>
+            {leftColumnFaqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="mb-4"
+              >
+                <button
+                  onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                  className={`w-full text-left px-6 py-4 rounded-lg transition-all duration-300 focus:outline-none ${
+                    openIndex === index 
+                      ? 'bg-blue-600 text-white shadow-lg' 
+                      : 'bg-gray-50 text-gray-900 hover:bg-gray-100'
+                  }`}
+                >
+                  <div className="flex justify-between items-center">
+                    <h3 className={`text-lg font-semibold ${
+                      openIndex === index ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {faq.question}
+                    </h3>
+                    <motion.svg
+                      animate={{ rotate: openIndex === index ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                      className={`w-5 h-5 transition-colors duration-300 ${
+                        openIndex === index 
+                          ? 'text-white' 
+                          : 'text-gray-500 hover:text-blue-600'
+                      }`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </motion.svg>
+                  </div>
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      height: openIndex === index ? "auto" : 0,
+                      opacity: openIndex === index ? 1 : 0
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <p className={`mt-4 ${
+                      openIndex === index ? 'text-blue-50' : 'text-gray-600'
+                    }`}>
+                      {faq.answer}
+                    </p>
+                  </motion.div>
+                </button>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Right Column */}
+          <div>
+            {rightColumnFaqs.map((faq, index) => (
+              <motion.div
+                key={index + leftColumnFaqs.length}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: (index + leftColumnFaqs.length) * 0.1 }}
+                className="mb-4"
+              >
+                <button
+                  onClick={() => setOpenIndex(openIndex === (index + leftColumnFaqs.length) ? null : index + leftColumnFaqs.length)}
+                  className={`w-full text-left px-6 py-4 rounded-lg transition-all duration-300 focus:outline-none ${
+                    openIndex === index + leftColumnFaqs.length
+                      ? 'bg-blue-600 text-white shadow-lg' 
+                      : 'bg-gray-50 text-gray-900 hover:bg-gray-100'
+                  }`}
+                >
+                  <div className="flex justify-between items-center">
+                    <h3 className={`text-lg font-semibold ${
+                      openIndex === index + leftColumnFaqs.length ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {faq.question}
+                    </h3>
+                    <motion.svg
+                      animate={{ rotate: openIndex === index + leftColumnFaqs.length ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                      className={`w-5 h-5 transition-colors duration-300 ${
+                        openIndex === index + leftColumnFaqs.length
+                          ? 'text-white' 
+                          : 'text-gray-500 hover:text-blue-600'
+                      }`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </motion.svg>
+                  </div>
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      height: openIndex === index + leftColumnFaqs.length ? "auto" : 0,
+                      opacity: openIndex === index + leftColumnFaqs.length ? 1 : 0
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <p className={`mt-4 ${
+                      openIndex === index + leftColumnFaqs.length ? 'text-blue-50' : 'text-gray-600'
+                    }`}>
+                      {faq.answer}
+                    </p>
+                  </motion.div>
+                </button>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // CTA Section
 function CTA() {
   return (
@@ -717,6 +905,7 @@ export default function Home() {
       <Features />
       <Testimonials />
       <Pricing />
+      <FAQ />
       <CTA />
       <Footer />
     </main>
