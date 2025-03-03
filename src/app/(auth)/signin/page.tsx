@@ -62,10 +62,10 @@ export default function SignIn() {
         if (data.user) {
           router.push('/dashboard') // Redirect to dashboard after successful sign in
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         setErrors(prev => ({
           ...prev,
-          email: error.message,
+          email: error instanceof Error ? error.message : 'An error occurred',
         }))
       } finally {
         setIsLoading(false)

@@ -206,10 +206,10 @@ export default function SignUp() {
 
           router.push('/verify-email') // Create this page to show email verification instructions
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         setErrors(prev => ({
           ...prev,
-          email: error.message,
+          email: error instanceof Error ? error.message : 'An error occurred',
         }))
       } finally {
         setIsLoading(false)

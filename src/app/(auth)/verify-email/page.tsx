@@ -33,7 +33,7 @@ export default function VerifyEmail() {
             </h2>
             <div className="mt-4 text-center">
               <p className="text-gray-600">
-                We've sent you an email with a verification link. Please click the link to verify your account.
+                We&apos;ve sent you an email with a verification link. Please click the link to verify your account.
               </p>
               <div className="mt-6 space-y-4">
                 <p className="text-gray-600">
@@ -43,7 +43,7 @@ export default function VerifyEmail() {
                   </Link>
                 </p>
                 <p className="text-gray-600">
-                  Didn't receive the email?{' '}
+                  Didn&apos;t receive the email?{' '}
                   <Link href="/signup" className="text-blue-600 hover:text-indigo-500">
                     Try signing up again
                   </Link>
