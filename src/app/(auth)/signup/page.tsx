@@ -5,6 +5,8 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { EyeIcon, EyeSlashIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'
 import Logo from '@/components/Logo'
+import { supabase } from '@/lib/supabase'
+import { useRouter } from 'next/navigation'
 
 interface PasswordStrength {
   score: number;
@@ -14,6 +16,7 @@ interface PasswordStrength {
 }
 
 export default function SignUp() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,6 +34,7 @@ export default function SignUp() {
   })
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [passwordStrength, setPasswordStrength] = useState<PasswordStrength>({
     score: 0,
     message: '',
@@ -165,8 +169,51 @@ export default function SignUp() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (validateForm()) {
-      // TODO: Implement sign-up logic here
-      console.log('Form submitted:', formData)
+      setIsLoading(true)
+      try {
+        // Sign up the user
+        const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+          email: formData.email,
+          password: formData.password,
+          options: {
+            data: {
+              full_name: formData.name,
+              newsletter: formData.newsletter,
+            },
+          },
+        })
+
+        if (signUpError) {
+          throw signUpError
+        }
+
+        if (signUpData.user) {
+          // Create a profile in your profiles table (if you have one)
+          const { error: profileError } = await supabase
+            .from('profiles')
+            .insert([
+              {
+                id: signUpData.user.id,
+                full_name: formData.name,
+                email: formData.email,
+                newsletter: formData.newsletter,
+              },
+            ])
+
+          if (profileError) {
+            console.error('Error creating profile:', profileError)
+          }
+
+          router.push('/verify-email') // Create this page to show email verification instructions
+        }
+      } catch (error: any) {
+        setErrors(prev => ({
+          ...prev,
+          email: error.message,
+        }))
+      } finally {
+        setIsLoading(false)
+      }
     }
   }
 
@@ -418,9 +465,20 @@ export default function SignUp() {
                 type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                disabled={isLoading}
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Create Account
+                {isLoading ? (
+                  <div className="flex items-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Creating account...
+                  </div>
+                ) : (
+                  'Create Account'
+                )}
               </motion.button>
             </div>
           </motion.form>
